@@ -1,0 +1,18 @@
+{
+  "nickname": "Techie",
+  "name": "John Doe",
+  "birth": "1990-05-15",
+  "stack": ["JavaScript", "Python", "HTML/CSS"]
+},
+{
+"nickname": "CodeMaster",
+"name": "Alice Smith",
+"birth": "1985-11-20",
+"stack": ["Java", "C#", "SQL"]
+},
+{
+"nickname": "GeekGirl",
+"name": "Emily Johnson",
+"birth": "1993-08-08",
+"stack": ["Ruby", "PHP", "Swift"]
+}
