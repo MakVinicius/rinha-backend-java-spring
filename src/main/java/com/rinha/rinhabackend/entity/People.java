@@ -2,6 +2,7 @@ package com.rinha.rinhabackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rinha.rinhabackend.validator.NotEmptyDate;
+import com.rinha.rinhabackend.validator.NotNumberList;
 import com.rinha.rinhabackend.validator.StringField;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "people")
 @Entity
+@Validated
 public class People {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -40,7 +43,7 @@ public class People {
 
     @ElementCollection
     @CollectionTable(name = "stack", joinColumns = @JoinColumn(name = "person_id"))
-    private List<@Valid @Size(max = 32) String> stack;
+    private List<@Valid @NotNumberList @Size(max = 32) String> stack;
 
     @Column(length = 1600)
     private String concatenated;
