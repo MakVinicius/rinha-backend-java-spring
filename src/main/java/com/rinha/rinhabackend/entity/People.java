@@ -17,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -46,6 +47,7 @@ public class People {
     private List<@Valid @NotNumberList @Size(max = 32) String> stack;
 
     @Column(length = 1600)
+    @JsonIgnore
     private String concatenated;
 
     public People(String nickname, String name, Date birth, List<String> stack) {
@@ -62,9 +64,14 @@ public class People {
         StringBuilder fullNameAndStack = new StringBuilder();
 
         fullNameAndStack
-                .append(nickname).append(";")
-                .append(name).append(";")
-                .append(String.join(";", stack));
+                .append(nickname.toLowerCase()).append(";")
+                .append(name.toLowerCase()).append(";");
+
+        String stackLowerCase = stack.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.joining(";"));
+
+        fullNameAndStack.append(stackLowerCase);
 
         return fullNameAndStack.toString();
     }
