@@ -10,7 +10,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -26,13 +25,11 @@ public class People {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NotBlank
     @StringField
-    //@Column(unique = true)
+    @Column(unique = true)
     @Size(max = 32)
     private String nickname;
 
-    @NotBlank
     @StringField
     @Size(max = 100)
     private String name;
