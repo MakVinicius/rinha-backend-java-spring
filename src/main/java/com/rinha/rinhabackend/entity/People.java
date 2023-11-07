@@ -6,7 +6,6 @@ import com.rinha.rinhabackend.validator.NotNumberList;
 import com.rinha.rinhabackend.validator.StringField;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,17 +29,18 @@ public class People {
     private UUID id;
 
     @StringField
-    @Column(unique = true)
+    @Column(unique = true, length = 32)
     @Size(max = 32)
     private String nickname;
 
     @StringField
+    @Column(length = 100)
     @Size(max = 100)
     private String name;
 
     @NotEmptyDate
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birth;
+    private LocalDate birth;
 
     @ElementCollection
     @CollectionTable(name = "stack", joinColumns = @JoinColumn(name = "person_id"))
@@ -50,7 +50,7 @@ public class People {
     @JsonIgnore
     private String concatenated;
 
-    public People(String nickname, String name, Date birth, List<String> stack) {
+    public People(String nickname, String name, LocalDate birth, List<String> stack) {
         this.nickname = nickname;
         this.name = name;
         this.birth = birth;
