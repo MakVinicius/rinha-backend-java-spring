@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/rinhadb
+    url: jdbc:postgresql://host.docker.internal:5432/rinhadb?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
     username: postgres
     password: postgres
   jpa:
@@ -9,3 +9,6 @@ spring:
   sql:
     init:
       mode: always
+#server:
+#  port:
+#    - 9999s

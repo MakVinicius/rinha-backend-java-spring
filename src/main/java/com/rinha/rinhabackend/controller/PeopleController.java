@@ -4,10 +4,14 @@ import com.rinha.rinhabackend.entity.People;
 import com.rinha.rinhabackend.service.PeopleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping
@@ -23,11 +27,13 @@ public class PeopleController {
 
     @PostMapping("/pessoas")
     public ResponseEntity<?> createPerson(@Valid @RequestBody People people) {
-        peopleService.createPerson(people);
-        return new ResponseEntity<>(
-                "",
-                HttpStatus.CREATED
-        );
+        People newPeople = peopleService.createPerson(people);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Location", "/pessoas/" + newPeople.getId().toString());
+
+        return ResponseEntity.created(URI.create(""))
+                .headers(responseHeaders)
+                .body("");
     }
 
     @GetMapping("/pessoas/{uuid}")
